@@ -8,7 +8,10 @@
   "permissions": {
     "reddit": {
       "enable": true,
-      "scope": "user"
+      "scope": "user",
+      "asUser": [
+        "SUBSCRIBE_TO_SUBREDDIT"
+      ]
     }
   },
   "menu": {
@@ -19,12 +22,20 @@
         "location": "subreddit",
         "forUserType": "user",
         "endpoint": "/internal/menu/verify"
+      },
+      {
+        "label": "Join r/sequentia",
+        "description": "Subscribe to r/sequentia, where Sequentia announcements are posted. Optional, and separate from verification.",
+        "location": "subreddit",
+        "forUserType": "user",
+        "endpoint": "/internal/menu/join"
       }
     ]
   },
   "forms": {
     "codeForm": "/internal/form/code",
-    "tokenForm": "/internal/form/token"
+    "tokenForm": "/internal/form/token",
+    "joinForm": "/internal/form/join"
   },
   "settings": {
     "global": {

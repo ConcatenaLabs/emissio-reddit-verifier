@@ -59,12 +59,42 @@ router.post("/internal/form/code", async (req, res): Promise<void> => {
       name: "tokenForm",
       form: {
         title: "Your Emissio token",
-        description: `Copy all of it and paste it into the Reddit row on your Emissio account page. It is valid for 24 hours and only for the account code you entered.\n\n${token}`,
+        description: `Copy all of it and paste it into the Reddit row on your Emissio account page. It is valid for 24 hours and only for the account code you entered.\n\n${token}\n\nSequentia announcements are posted in r/sequentia. If you would like them in your feed, the "Join r/sequentia" entry in the same menu subscribes you; it is optional and separate from verification.`,
         fields: [{ type: "paragraph" as const, name: "token", label: "Token", defaultValue: token, lineHeight: 6 }],
         acceptLabel: "Done",
       },
     },
   });
+});
+
+// Joining is an invitation the user accepts explicitly, never a condition
+// of verification: Reddit's user-action rules forbid gating on it, and the
+// age bar already carries the sybil load.
+const joinForm: Form = {
+  title: "Join r/sequentia",
+  description:
+    "Subscribe this Reddit account to r/sequentia, where Sequentia announcements are posted. Nothing else changes, and verification does not depend on it.",
+  fields: [],
+  acceptLabel: "Subscribe me",
+  cancelLabel: "Not now",
+};
+
+router.post("/internal/menu/join", async (_req, res): Promise<void> => {
+  if (!context.userId) {
+    ui(res, { showToast: "Log in to Reddit first." });
+    return;
+  }
+  ui(res, { showForm: { name: "joinForm", form: joinForm } });
+});
+
+router.post("/internal/form/join", async (_req, res): Promise<void> => {
+  try {
+    await reddit.subscribeToCurrentSubreddit();
+    ui(res, { showToast: { text: "You have joined r/sequentia.", appearance: "success" } });
+  } catch (err) {
+    console.error(`subscribe failed: ${err}`);
+    ui(res, { showToast: "Could not subscribe you. You can join from the subreddit's Join button instead." });
+  }
 });
 
 router.post("/internal/form/token", async (_req, res): Promise<void> => {
