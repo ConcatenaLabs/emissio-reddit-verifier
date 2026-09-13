@@ -1,0 +1,36 @@
+{
+  "$schema": "https://developers.reddit.com/schema/config-file.v1.json",
+  "name": "emissio-verify",
+  "server": {
+    "dir": "dist/server",
+    "entry": "index.cjs"
+  },
+  "permissions": {
+    "reddit": { "enable": true, "scope": "user" }
+  },
+  "menu": {
+    "items": [
+      {
+        "label": "Verify for Emissio",
+        "description": "Prove you own this Reddit account to the Sequentia Emissio rewards site.",
+        "location": "subreddit",
+        "forUserType": "user",
+        "endpoint": "/internal/menu/verify"
+      }
+    ]
+  },
+  "forms": {
+    "codeForm": "/internal/form/code",
+    "tokenForm": "/internal/form/token"
+  },
+  "settings": {
+    "global": {
+      "tokenSecret": {
+        "type": "string",
+        "label": "Token signing secret (shared with the Emissio server)",
+        "defaultValue": "",
+        "isSecret": true
+      }
+    }
+  }
+}
