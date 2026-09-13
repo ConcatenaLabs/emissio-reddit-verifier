@@ -59,12 +59,10 @@ router.post("/internal/form/code", async (req, res): Promise<void> => {
       name: "tokenForm",
       form: {
         title: "Your Emissio token",
-        description:
-          "Copy all of it and paste it into the Reddit row on your Emissio account page. It is valid for 24 hours and only for the account code you entered.",
-        fields: [{ type: "paragraph" as const, name: "token", label: "Token", lineHeight: 6 }],
+        description: `Copy all of it and paste it into the Reddit row on your Emissio account page. It is valid for 24 hours and only for the account code you entered.\n\n${token}`,
+        fields: [{ type: "paragraph" as const, name: "token", label: "Token", defaultValue: token, lineHeight: 6 }],
         acceptLabel: "Done",
       },
-      data: { token },
     },
   });
 });
