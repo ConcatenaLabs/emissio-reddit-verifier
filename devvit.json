@@ -1,12 +1,15 @@
 {
   "$schema": "https://developers.reddit.com/schema/config-file.v1.json",
-  "name": "emissio-verify",
+  "name": "emissiochecker",
   "server": {
     "dir": "dist/server",
     "entry": "index.cjs"
   },
   "permissions": {
-    "reddit": { "enable": true, "scope": "user" }
+    "reddit": {
+      "enable": true,
+      "scope": "user"
+    }
   },
   "menu": {
     "items": [
@@ -28,9 +31,11 @@
       "tokenSecret": {
         "type": "string",
         "label": "Token signing secret (shared with the Emissio server)",
-        "defaultValue": "",
         "isSecret": true
       }
     }
+  },
+  "dev": {
+    "subreddit": "emissiochecker_dev"
   }
 }
