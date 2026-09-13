@@ -13,6 +13,8 @@ Reddit no longer serves profile data to unauthenticated requests, and an app on 
 
 Reddit authenticates the user for the app, so the signature is the ownership proof. Nothing is posted, no bio is edited, and the token is valid for 24 hours and for one account code only.
 
+A second menu entry, **Join r/sequentia**, subscribes the user to the subreddit after they confirm. It is an invitation kept separate from verification, as Reddit's rules for actions taken on a user's behalf require: nothing in the app depends on having joined.
+
 ### Token format
 
 ```
@@ -25,8 +27,8 @@ The payload is JSON with `u` (username), `c` (account created, Unix seconds), `e
 
 | Path | Purpose |
 |---|---|
-| `devvit.json` | App configuration: the menu item, the two forms, the `tokenSecret` setting |
-| `src/server/index.ts` | The three endpoints: menu action, code form, token form |
+| `devvit.json` | App configuration: the two menu items, the three forms, the `tokenSecret` setting, the subscribe-as-user permission |
+| `src/server/index.ts` | The endpoints: the two menu actions, the code, token and join forms |
 | `src/token.ts` | Signing and verification of tokens |
 | `test/` | Token round trip, tampering, expiry and code format |
 
