@@ -1,0 +1,24 @@
+# Typecheck, tests and the server bundle on every pull request and on main, on Node 22, the
+# runtime the bundle targets (`--target=node22`). Nothing is uploaded: `devvit upload` is
+# interactive and is the owner's step.
+name: tests
+on:
+  pull_request:
+  push:
+    branches: [main]
+permissions:
+  contents: read
+jobs:
+  node-test:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: npm
+      - run: npm ci
+      - run: npm run typecheck
+      - run: npm test
+      - run: npm run build

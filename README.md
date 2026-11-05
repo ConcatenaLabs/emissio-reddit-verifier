@@ -43,6 +43,9 @@ npm run typecheck
 npm run build     # bundles src/server into dist/server/index.cjs
 ```
 
+CI (`.github/workflows/tests.yml`) runs the typecheck, the tests and the build on every pull
+request and on `main`.
+
 `npm run dev` starts a playtest on r/sequentia, which installs the app there and reinstalls on every save; it needs a logged-in Reddit account that moderates the subreddit.
 
 ## Deploying
